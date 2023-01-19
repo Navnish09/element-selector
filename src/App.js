@@ -22,32 +22,34 @@ export default function App() {
           </div>
 
           <div className="card">Card</div>
-
-          <h2>Enable the selector and hover the elements to select.</h2>
+          
+          <h3>Enable the selector and hover the elements to select.</h3>
         </div>
       </ElementSelector>
 
-      <center>
-        <button
-          onClick={() => {
-            setEnable((prev) => !prev);
-          }}
-          data-noselection={true}
-        >
-          {!enable ? "Enable Selector" : "Disable Selector"}
-        </button>
-      </center>
-      <br />
-      <center>
-        <button
-          onClick={() => {
-            setMultiSelect((prev) => !prev);
-          }}
-          data-noselection={true}
-        >
-          {!multiSelect ? "Enable multi select" : "Disable multi select"}
-        </button>
-      </center>
+      <div className="button-container">
+        <center>
+          <button
+            onClick={() => {
+              setEnable((prev) => !prev);
+            }}
+            data-noselection={true}
+          >
+            {!enable ? "Enable Selector" : "Disable Selector"}
+          </button>
+        </center>
+        <br />
+        <center>
+          <button
+            onClick={() => {
+              setMultiSelect((prev) => !prev);
+            }}
+            data-noselection={true}
+          >
+            {!multiSelect ? "Enable multi select" : "Disable multi select"}
+          </button>
+        </center>
+      </div>
     </>
   );
 }
