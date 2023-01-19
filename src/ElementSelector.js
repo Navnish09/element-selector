@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { manageClass, manageEvent } from "./helper";
+import { addClass, manageEvent, removeClass } from "./helper";
 
 export const ElementSelector = ({
   enable,
@@ -12,7 +12,7 @@ export const ElementSelector = ({
   const SELECTED_CLASS = customClasses?.selected || "selected";
   const OVERLAY_CLASS = "selectorOverlay";
 
-  let hoveredElements = [];
+  const hoveredElements = [];
   let lastHoveredElement = null;
 
   const containerRef = useRef();
@@ -20,9 +20,8 @@ export const ElementSelector = ({
   const selectedElements = useRef([]);
 
   const onMouseLeaveHandler = (e) => {
-    manageClass(e.target, HOVERED_CLASS, true);
-
-    manageClass(overlayRef.current, OVERLAY_CLASS, true);
+    removeClass(e.target, HOVERED_CLASS);
+    removeClass(overlayRef.current, OVERLAY_CLASS);
 
     // Detach all the event from the element on mouse leave
     manageEvent({
@@ -42,7 +41,7 @@ export const ElementSelector = ({
    * show only the current element as hovered
    * **/
   const clearLastHover = () => {
-    manageClass(lastHoveredElement, HOVERED_CLASS, true);
+    removeClass(lastHoveredElement, HOVERED_CLASS);
   };
 
   // Element mouse over handler
@@ -51,8 +50,8 @@ export const ElementSelector = ({
     const currentElement = e.target;
 
     if (!e.target.dataset.noselection) {
-      manageClass(overlayRef.current, OVERLAY_CLASS);
-      manageClass(currentElement, HOVERED_CLASS);
+      addClass(overlayRef.current, OVERLAY_CLASS);
+      addClass(currentElement, HOVERED_CLASS);
 
       manageEvent({
         eventObject: hoveredElementEvents,
@@ -60,7 +59,7 @@ export const ElementSelector = ({
       });
 
       if (!hoveredElements.includes(currentElement)) {
-        hoveredElements = [...hoveredElements, currentElement];
+        hoveredElements.push(currentElement);
       }
 
       lastHoveredElement = currentElement;
@@ -70,7 +69,7 @@ export const ElementSelector = ({
   // Deselect all the elements at once
   const deselectElements = () => {
     selectedElements.current.forEach((element) => {
-      element && manageClass(element, SELECTED_CLASS, true);
+      element && removeClass(element, SELECTED_CLASS);
     });
 
     selectedElements.current = [];
@@ -83,10 +82,10 @@ export const ElementSelector = ({
 
       // Allow selecting multiple components if
       if (!e.target.classList.contains(SELECTED_CLASS)) {
-        manageClass(e.target, SELECTED_CLASS);
+        addClass(e.target, SELECTED_CLASS);
         selectedElements.current = [...selectedElements.current, e.target];
       } else {
-        manageClass(e.target, SELECTED_CLASS, true);
+        removeClass(e.target, SELECTED_CLASS, true);
       }
     }
 
