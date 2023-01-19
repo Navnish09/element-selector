@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { manageClass, manageEvent } from "./helper";
 
 export const ElementSelector = ({
@@ -6,7 +6,7 @@ export const ElementSelector = ({
   customClasses,
   children,
   onSelection,
-  multiSelect
+  multiSelect,
 }) => {
   const HOVERED_CLASS = customClasses?.hovered || "hovered";
   const SELECTED_CLASS = customClasses?.selected || "selected";
@@ -28,17 +28,19 @@ export const ElementSelector = ({
     manageEvent({
       eventObject: hoveredElementEvents,
       target: e.target,
-      removeListener: true
+      removeListener: true,
     });
   };
 
   // Events to attach on the current hovered element
   const hoveredElementEvents = {
-    mouseleave: onMouseLeaveHandler
+    mouseleave: onMouseLeaveHandler,
   };
 
-  // Clear the hovered style from all previously hovered elements
-  // to show only the current element as hovered
+  /**
+   * Clear the hovered style from all previously hovered elements to
+   * show only the current element as hovered
+   * **/
   const clearLastHover = () => {
     manageClass(lastHoveredElement, HOVERED_CLASS, true);
   };
@@ -54,7 +56,7 @@ export const ElementSelector = ({
 
       manageEvent({
         eventObject: hoveredElementEvents,
-        target: currentElement
+        target: currentElement,
       });
 
       if (!hoveredElements.includes(currentElement)) {
@@ -95,7 +97,7 @@ export const ElementSelector = ({
   // Events to attach on the main container
   const containerEvents = {
     mouseover: onMouseOverHandler,
-    click: clickHandler
+    click: clickHandler,
   };
 
   // Detach all the events from the
@@ -104,7 +106,7 @@ export const ElementSelector = ({
       eventObject: containerEvents,
       target: containerRef.current,
       removeListener: true,
-      eventOptions: [false]
+      eventOptions: [false],
     });
   };
 
@@ -113,7 +115,7 @@ export const ElementSelector = ({
       manageEvent({
         eventObject: containerEvents,
         target: containerRef.current,
-        eventOptions: [false]
+        eventOptions: [false],
       });
     } else {
       detachEvents();
