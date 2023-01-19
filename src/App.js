@@ -18,7 +18,7 @@ export default function App() {
       >
         <div className="App">
           <div style={{ padding: "10px" }}>
-            <h1>Element Selector</h1>
+            <h1>Element Selectors</h1>
           </div>
 
           <div className="card">Card</div>
