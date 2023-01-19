@@ -37,8 +37,10 @@ export const ElementSelector = ({
     mouseleave: onMouseLeaveHandler,
   };
 
-  // Clear the hovered style from all previously hovered elements
-  // to show only the current element as hovered
+  /**
+   * Clear the hovered style from all previously hovered elements to
+   * show only the current element as hovered
+   * **/
   const clearLastHover = () => {
     manageClass(lastHoveredElement, HOVERED_CLASS, true);
   };
