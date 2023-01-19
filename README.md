@@ -1,2 +1,1 @@
-# element-selector
-Created with CodeSandbox
+## Element-selector To select DOM Element
